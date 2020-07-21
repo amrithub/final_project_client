@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import {withRouter} from 'react-router-dom'
-
-const NewDishPost = ({history, addDishPost, nextId}) => {
+import {divStyles, inputStyles, labelStyles} from '../styles'
+import {useGlobalState} from '../config/store'
+const NewDishPost = ({history}) => {
     const divStyles = {
         display: "grid",
         width: "100vw"
@@ -18,6 +19,11 @@ const NewDishPost = ({history, addDishPost, nextId}) => {
         margin: ".5em",
         width: "70vw"
     }
+    function getNextId(){
+        const ids = dishPosts.map((post) => post._id)
+        return ids.sort()[ids.length-1] + 1
+    }
+
     function handleChange(event) {
         const name = event.target.name
         const value = event.target.value
@@ -28,6 +34,7 @@ const NewDishPost = ({history, addDishPost, nextId}) => {
     }
     function handleSubmit(event) {
         event.preventDefault()
+        const nextId = getNextId()
         const newPost = {
             _id: nextId,
             title: formState.title,
@@ -35,7 +42,10 @@ const NewDishPost = ({history, addDishPost, nextId}) => {
             modified_date: new Date(),
             content: formState.content
         }
-        addDishPost(newPost)
+        dispatch({
+            type: "setdishPosts",
+            data: [...dishPosts, newPost]
+        })
         history.push(`/posts/${nextId}`)
     }
     const initialFormState = {
@@ -44,6 +54,10 @@ const NewDishPost = ({history, addDishPost, nextId}) => {
         content: ""
     } 
     const [formState,setFormState] = useState(initialFormState)
+    const {store, dispatch} = useGlobalState()
+    const {dishPosts} = store
+
+    //const [formState,setFormState] = useState(initialFormState)
     return (
         <form id="newPostForm" onSubmit={handleSubmit}>
             <div style={divStyles}>

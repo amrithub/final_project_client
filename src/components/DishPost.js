@@ -1,6 +1,9 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-const DishPost = ({history, post, showControls, deleteDishPost}) => {
+import {useGlobalState} from '../config/store'
+const DishPost = ({history, post, showControls}) => {
+    const {store, dispatch} = useGlobalState()
+    const {dishPosts} = store
     // return null if there is no post
     if (!post) return null
     const linkStyles = {
@@ -14,9 +17,15 @@ const DishPost = ({history, post, showControls, deleteDishPost}) => {
     const {title, modified_date, category, content} = post
     function handleDelete(event) {
         event.preventDefault()
-        deleteDishPost(post._id)
+        const updatedPosts = dishPosts.filter((dishPost) => dishPost._id !== post._id)
+        dispatch({
+            type: "setDishPosts",
+            data: updatedPosts
+        })
         history.push("/")
     }
+
+    // Handle the edit button
     function handleEdit(event) {
         event.preventDefault()
         history.push(`/posts/edit/${post._id}`)

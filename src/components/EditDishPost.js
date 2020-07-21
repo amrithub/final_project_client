@@ -1,7 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import {withRouter} from 'react-router-dom'
+import {useGlobalState} from '../config/store'
+import {getPostFromId} from '../services/dishPostServices'
 
-const EditDishPost = ({history, updateDishPost, post}) => {
+const EditDishPost = ({history, match}) => {
+    const {store, dispatch} = useGlobalState()
+    const {dishPosts} = store
+    const postId = match && match.params ? match.params.id : -1
+    const post = getPostFromId(dishPosts, postId)
     const divStyles = {
         display: "grid",
         width: "100vw"
@@ -35,7 +41,11 @@ const EditDishPost = ({history, updateDishPost, post}) => {
             modified_date: new Date(),
             content: formState.content
         }
-        updateDishPost(updatedPost)
+        const otherPosts = dishPosts.filter((post) => post._id !== updatedPost._id)
+        dispatch({
+            type: "setDishPosts",
+            data: [...otherPosts, updatedPost]
+        })
         history.push(`/posts/${post._id}`)
     }
     // Set initial form values to what is in the current post

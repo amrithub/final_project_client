@@ -1,13 +1,20 @@
 import React, {useState} from 'react'
 import {divStyles, inputStyles, labelStyles} from '../styles'
-
-const SignIn = ({history, loginUser}) => {
+import {useGlobalState} from '../config/store'
+import {loginUser} from '../services/authServices'
+const SignIn = ({history}) => {
     const initialFormState = {
         username: "",
         password: ""
     } 
+    
+    const [errorMessage, setErrorMessage] = useState(null);
     const [userDetails,setUserDetails] = useState(initialFormState)
-
+    const {dispatch} = useGlobalState()
+    const errorStyles = {
+        color: "red"
+    }
+    
     function handleChange(event) {
         const name = event.target.name
         const value = event.target.value
@@ -18,11 +25,33 @@ const SignIn = ({history, loginUser}) => {
     }
     function handleSubmit(event) {
         event.preventDefault()
-        loginUser(userDetails)
-        history.push("/")
+        // Attempt login on server
+        loginUser(userDetails).then((response) => {
+            dispatch({
+                type: "setLoggedInUser",
+                data: userDetails.username
+            })
+            history.push("/")
+    
+        }).catch((error) => {
+            if (error.response && error.response.status === 401)
+                setErrorMessage("Authentication failed. Please check your username and password.")
+            else   
+                setErrorMessage("There may be a problem with the server. Please try again after a few moments.")
+        })		
     }
+    
+    // function loginUser() {
+    //     dispatch({
+    //     type: "setLoggedInUser",
+    //     data: userDetails.username
+    //     })
+    // }
     return (
+        
         <form onSubmit={handleSubmit}>
+            
+            {errorMessage && <p style={errorStyles}>{errorMessage}</p>}
             <div style={divStyles}>
                 <label style={labelStyles}>Username</label>
                 <input style={inputStyles} required type="text" name="username" placeholder="Enter a username" onChange={handleChange}></input>
