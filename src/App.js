@@ -45,7 +45,7 @@ useEffect(() => {
       <StateContext.Provider value={{store,dispatch}}>
         <BrowserRouter>
           <Navigate />
-          <h1>Many Mumbling Mice</h1>
+          <h1>order your favourite Dish for Today</h1>
           <Route exact path="/" component={DishPosts} />
           <Route exact path="/posts/:id" render={(props) => <DishPost {...props} post={getPostFromId(dishPosts,props.match.params.id)} showControls /> } />
           <Route exact path="/posts/new" component={NewDishPost} />
