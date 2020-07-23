@@ -2,8 +2,8 @@ import React, {useState} from 'react'
 import {withRouter} from 'react-router-dom'
 import {divStyles, inputStyles, labelStyles} from '../styles'
 import {useGlobalState} from '../config/store'
-import {addDishPost} from '../services/dishPostServices'
-const NewDishPost = ({history}) => {
+import {addOrderPost} from '../services/OrderPostServices'
+const NewOrderPost = ({history}) => {
     const divStyles = {
         display: "grid",
         width: "100vw"
@@ -35,21 +35,21 @@ const NewDishPost = ({history}) => {
     }
     function handleSubmit(event) {
         event.preventDefault()
-        const newPost = {
+        const newOrder = {
             title: formState.title,
             category: formState.category || "general",
             content: formState.content,
         
         }
-        addDishPost(newPost).then((newPost) => {
+        addOrderPost(newOrder).then((newOrder) => {
             dispatch({
-                type: "setDishPosts",
-                data: [newPost, ...dishPosts]
+                type: "setOrderPosts",
+                data: [newOrder, ...orderPosts]
             })
-            history.push(`/posts/${newPost._id}`)
+            history.push(`/orders/${newOrder._id}`)
             console.log("yellow")
         }).catch((error) => {
-            console.log("Caught an error on server adding a post", error)
+            console.log("Caught an error on server posting an order", error)
         })
     }
     const initialFormState = {
@@ -60,26 +60,27 @@ const NewDishPost = ({history}) => {
     } 
     const [formState,setFormState] = useState(initialFormState)
     const {store, dispatch} = useGlobalState()
-    const {dishPosts} = store
+    const {orderPosts} = store
 
     //const [formState,setFormState] = useState(initialFormState)
     return (
-        <form id="newPostForm" onSubmit={handleSubmit}>
+        <form id="newOrderForm" onSubmit={handleSubmit}>
             <div style={divStyles}>
                 <label style={labelStyles}>Title</label>
                 <input style={inputStyles} required type="text" name="title" placeholder="Enter a title" onChange={handleChange}></input>
             </div>
             <div style={divStyles}>
+                <label style={labelStyles}>Content</label>
+                <textarea form="newOrderForm" required style={textAreaStyles} name="content" placeholder="Enter post here" onChange={handleChange}></textarea>
+            </div>
+            <div style={divStyles}>
                 <label style={labelStyles}>Category</label>
                 <input style={inputStyles} type="text" name="category" placeholder="Enter a category" onChange={handleChange}></input>
             </div>
-            <div style={divStyles}>
-                <label style={labelStyles}>Content</label>
-                <textarea form="newPostForm" required style={textAreaStyles} name="content" placeholder="Enter post here" onChange={handleChange}></textarea>
-            </div>
-            <input type="submit" value="Add post"></input>
+            
+            <input type="submit" value="Add order"></input>
         </form>
     ) 
 }
 
-export default withRouter(NewDishPost)
+export default withRouter(NewOrderPost)
