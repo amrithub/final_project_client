@@ -33,14 +33,18 @@ const Navigate = () => {
                 <Link style={linkStyles} to="/">{loggedInUser}</Link>
                 <Link style={linkStyles} onClick={handleLogout} to="/">Logout</Link>
                
-                <Link style={linkStyles} to="/posts">Home</Link>
-                <Link style={linkStyles} to="/orders/new">Add order</Link>
                 <Link style={linkStyles} to="/posts/new">Add Dish Post</Link>
+                <Link style={linkStyles} to="/orders/new">Add order</Link>
+                <Link style={linkStyles} to="/">Home</Link>
+                <Link style={linkStyles} to="/orders">View Orders</Link>
+                
                 </div>)
             : (<div>
-                {/* <Link style={linkStyles} to="/">guest</Link> */}
+                
                 <Link style={linkStyles} to="/auth/login">Login</Link>
                 <Link style={linkStyles} to="/auth/register">Register</Link>
+                <Link style={linkStyles} to="/">Home</Link>
+               
                 </div>)
             }
             

@@ -17,6 +17,7 @@ import {getPostFromId, getAllDishPosts} from './services/dishPostServices'
 import OrderPosts from './components/OrderPosts'
 import OrderPost from './components/OrderPost'
 import NewOrderPost from './components/NewOrderPost'
+//import {loggedInUser}from './components/Navigate'
 
 
 
@@ -32,6 +33,7 @@ const App = () => {
   const [store, dispatch] = useReducer(stateReducer,initialState)
   const {dishPosts, orderPosts} = store
  function fetchDishPosts() {
+   
     getAllDishPosts().then((dishData) => {
       dispatch({
         type: "setDishPosts",
@@ -42,9 +44,7 @@ const App = () => {
     })
 }
 
-useEffect(() => {
-    fetchDishPosts()
-},[])
+
 
 function fetchOrderPosts() {
   getAllOrderPosts().then((orderData) => {
@@ -59,6 +59,10 @@ function fetchOrderPosts() {
 useEffect(() => {
   fetchOrderPosts()
 },[])
+useEffect(() => {
+    fetchDishPosts()
+},[])
+
 
 
 
@@ -72,8 +76,8 @@ useEffect(() => {
           <h1>order your favourite Dish for Today</h1>
           <Route exact path="/" component={DishPosts} />
           <Route exact path="/posts/:id" render={(props) => <DishPost {...props} post={getPostFromId(dishPosts,props.match.params.id)} showControls /> } />
-          <Route exact path="/" component={OrderPosts} />
-          <Route exact path="/orders/:id" render={(props) => <OrderPost {...props} post={getOrderFromId(orderPosts,props.match.params.id)} showControls /> } />
+          <Route exact path="/orders" component={OrderPosts} />
+          <Route exact path="/orders/:id" render={(props) => <OrderPost {...props} order={getOrderFromId(orderPosts,props.match.params.id)} showControls /> } />
           <Route exact path="/posts/new" component={NewDishPost} />
           <Route exact path="/orders/new" component={NewOrderPost} />
           <Route exact path="/posts/edit/:id" component={EditDishPost} /> 

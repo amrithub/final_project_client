@@ -7,18 +7,19 @@ export default function (state, action) {
                 loggedInUser: action.data
             }
         }
-        case "setDishPosts": {
-            return {
-                ...state,
-                dishPosts: action.data
-            }
-        }
         case "setOrderPosts": {
             return {
                 ...state,
                 orderPosts: action.data
             }
         }
+        case "setDishPosts": {
+            return {
+                ...state,
+                dishPosts: action.data
+            }
+        }
+       
 
         
         default: 

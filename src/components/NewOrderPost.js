@@ -47,7 +47,6 @@ const NewOrderPost = ({history}) => {
                 data: [newOrder, ...orderPosts]
             })
             history.push(`/orders/${newOrder._id}`)
-            console.log("yellow")
         }).catch((error) => {
             console.log("Caught an error on server posting an order", error)
         })
@@ -70,14 +69,13 @@ const NewOrderPost = ({history}) => {
                 <input style={inputStyles} required type="text" name="title" placeholder="Enter a title" onChange={handleChange}></input>
             </div>
             <div style={divStyles}>
-                <label style={labelStyles}>Content</label>
-                <textarea form="newOrderForm" required style={textAreaStyles} name="content" placeholder="Enter post here" onChange={handleChange}></textarea>
-            </div>
-            <div style={divStyles}>
                 <label style={labelStyles}>Category</label>
                 <input style={inputStyles} type="text" name="category" placeholder="Enter a category" onChange={handleChange}></input>
             </div>
-            
+            <div style={divStyles}>
+                <label style={labelStyles}>Content</label>
+                <textarea form="newOrderForm" required style={textAreaStyles} name="content" placeholder="Enter post here" onChange={handleChange}></textarea>
+            </div>
             <input type="submit" value="Add order"></input>
         </form>
     ) 

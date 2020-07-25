@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {useGlobalState} from '../config/store'
 const DishPost = ({history, post, showControls}) => {
+    console.log(post)
     const {store, dispatch} = useGlobalState()
     const {dishPosts} = store
     // return null if there is no post
@@ -22,6 +23,7 @@ const DishPost = ({history, post, showControls}) => {
             type: "setDishPosts",
             data: updatedPosts
         })
+        console.log("dish post")
         history.push("/")
     }
 
@@ -35,6 +37,8 @@ const DishPost = ({history, post, showControls}) => {
         <div>
             <Link style={linkStyles} to={`/posts/${post._id}`}>
                 <h1>{title}</h1>
+               
+
                 <p>{modified_date.toLocaleString()}</p>
                 <p>{category}</p>
                 <p>{content}</p>
