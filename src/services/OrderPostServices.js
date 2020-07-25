@@ -3,7 +3,7 @@ import api from '../config/api';
 // Returns a single post based on the id provided
 export function getOrderFromId(orderPosts,id) {
     const order =  orderPosts.find((order) =>  order._id === id)
-    console.log(order)
+    //console.log(order)
     return order
 }
 export async function getAllOrderPosts() {
@@ -15,10 +15,11 @@ export async function addOrderPost(newOrder) {
     const response = await api.post("/orders", newOrder)
     return response.data
 }
-// export async function deleteBlogPost(id) {
-//     const response = await api.delete(`/posts/${id}`)
-//     return response.data
-// }
+export async function deleteOrderPost(id) {
+    console.log("check")
+    const response = await api.delete(`/orders/${id}`)
+    return response.data
+}
 
 // export async function updateBlogPost(post) {
 //     const response = await api.put(`/posts/${post._id}`, post)
