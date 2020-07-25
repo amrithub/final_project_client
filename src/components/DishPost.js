@@ -1,10 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
 import {useGlobalState} from '../config/store'
+import {deleteDishPost} from '../services/dishPostServices'
 const DishPost = ({history, post, showControls}) => {
-    console.log(post)
+   // console.log(post)
     const {store, dispatch} = useGlobalState()
-    const {dishPosts} = store
+    const {dishPosts, loggedInUser} = store
+    const [errorMessage, setErrorMessage] = useState(null)
     // return null if there is no post
     if (!post) return null
     const linkStyles = {
@@ -15,16 +17,27 @@ const DishPost = ({history, post, showControls}) => {
         margin: '.5em',
         fontSize: '1em'
     }
-    const {title, modified_date, category, content} = post
+    //const {title, modified_date, category, content} = post
+    const {title, username, modified_date, category, content} = post 
+    const allowEditDelete = loggedInUser //&& loggedInUser === post.username
     function handleDelete(event) {
         event.preventDefault()
-        const updatedPosts = dishPosts.filter((dishPost) => dishPost._id !== post._id)
-        dispatch({
-            type: "setDishPosts",
-            data: updatedPosts
+        deleteDishPost(post._id).then(() => {
+            console.log("deleted post")
+            const updatedPosts = dishPosts.filter((dishPost) => dishPost._id !== post._id)
+            dispatch({
+                type: "setDishPosts",
+                data: updatedPosts
+            })
+            history.push("/")
+        }).catch((error) => {
+            const status = error.response ? error.response.status : 500
+            console.log("caught error on edit", error)
+            if(status === 403)
+                setErrorMessage("Oops! It appears we lost your login session. Make sure 3rd party cookies are not blocked by your browser settings.")
+            else
+                setErrorMessage("Well, this is embarrassing... There was a problem on the server.")
         })
-        console.log("dish post")
-        history.push("/")
     }
 
     // Handle the edit button
@@ -42,7 +55,7 @@ const DishPost = ({history, post, showControls}) => {
                 <p>{modified_date.toLocaleString()}</p>
                 <p>{category}</p>
                 <p>{content}</p>
-                {showControls && (
+                {showControls && allowEditDelete && (
                     <div>
                         <button style={buttonStyles} onClick={handleDelete}>Delete</button>
                         <button style={buttonStyles} onClick={handleEdit}>Edit</button>

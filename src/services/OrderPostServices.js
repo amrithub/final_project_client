@@ -15,3 +15,12 @@ export async function addOrderPost(newOrder) {
     const response = await api.post("/orders", newOrder)
     return response.data
 }
+// export async function deleteBlogPost(id) {
+//     const response = await api.delete(`/posts/${id}`)
+//     return response.data
+// }
+
+// export async function updateBlogPost(post) {
+//     const response = await api.put(`/posts/${post._id}`, post)
+//     return response.data
+// }
