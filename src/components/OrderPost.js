@@ -20,7 +20,7 @@ const OrderPost = ({history, order, showControls}) => {
         margin: '.5em',
         fontSize: '1em'
     }
-    const {title, modified_date, category, content} = order
+    const {customer_name, modified_date, delivery_address, order_details, contact_number} = order
     const allowDelete = loggedInUser //&& loggedInUser === post.username
     function handleDelete(event) {
         event.preventDefault()
@@ -54,13 +54,15 @@ const OrderPost = ({history, order, showControls}) => {
         
         <div>
             <Link style={linkStyles} to={`/orders/${order._id}`}>
-                <h1>{title}</h1>
+                <h1>{customer_name}</h1>
                 <p>{modified_date.toLocaleString()}</p>
-                <p>{category}</p>
-                <p>{content}</p>
+                <p>{delivery_address}</p>
+                <p>{order_details}</p>
+                <p>{contact_number}</p>
+
                 {showControls && allowDelete && (
                     <div>
-                        <h1>fighter</h1>
+                        <h1>Order Details</h1>
                         <button style={buttonStyles} onClick={handleDelete}>Delete</button>
                     </div>
                 )}

@@ -36,9 +36,10 @@ const NewOrderPost = ({history}) => {
     function handleSubmit(event) {
         event.preventDefault()
         const newOrder = {
-            title: formState.title,
-            category: formState.category || "general",
-            content: formState.content,
+            customer_name: formState.customer_name,
+            delivery_address: formState.delivery_address,
+            order_details: formState.order_details,
+            contact_number: formState.contact_number
         
         }
         addOrderPost(newOrder).then((newOrder) => {
@@ -65,16 +66,20 @@ const NewOrderPost = ({history}) => {
     return (
         <form id="newOrderForm" onSubmit={handleSubmit}>
             <div style={divStyles}>
-                <label style={labelStyles}>Title</label>
-                <input style={inputStyles} required type="text" name="title" placeholder="Enter a title" onChange={handleChange}></input>
+                <label style={labelStyles}>customer Name</label>
+                <input style={inputStyles} required type="text" name="customer_name" placeholder="Enter your name" onChange={handleChange}></input>
             </div>
             <div style={divStyles}>
-                <label style={labelStyles}>Category</label>
-                <input style={inputStyles} type="text" name="category" placeholder="Enter a category" onChange={handleChange}></input>
+                <label style={labelStyles}>Delivery Address</label>
+                <input style={inputStyles} type="text" name="delivery_address" placeholder="Enter your address of delivery" onChange={handleChange}></input>
             </div>
             <div style={divStyles}>
-                <label style={labelStyles}>Content</label>
-                <textarea form="newOrderForm" required style={textAreaStyles} name="content" placeholder="Enter post here" onChange={handleChange}></textarea>
+                <label style={labelStyles}>Order Details</label>
+                <textarea form="newOrderForm" required style={textAreaStyles} name="order_details" placeholder="Enter post here" onChange={handleChange}></textarea>
+            </div>
+            <div style={divStyles}>
+                <label style={labelStyles}>Contact Number</label>
+                <input style={inputStyles} type="number" name="contact_number" placeholder="Enter your phone number" onChange={handleChange}></input>
             </div>
             <input type="submit" value="Add order"></input>
         </form>

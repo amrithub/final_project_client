@@ -36,11 +36,11 @@ const EditDishPost = ({history, match}) => {
         event.preventDefault()
         const updatedPost = {
             _id: post._id,
-            username: post.username,
-            title: formState.title,
-            category: formState.category || "general",
+            //username: post.username,
+            name: formState.name,
             modified_date: new Date(),
-            content: formState.content
+            price: formState.price,
+            description: formState.description
         }
         updateDishPost(updatedPost).then(() => {
             const otherPosts = dishPosts.filter((post) => post._id !== updatedPost._id)
@@ -60,9 +60,9 @@ const EditDishPost = ({history, match}) => {
     }
     
     const initialFormState = {
-        title: "",
-        category: "",
-        content: ""
+        name: "",
+        price: "",
+        description: ""
     } 
 
     const [formState,setFormState] = useState(initialFormState)
@@ -70,25 +70,25 @@ const EditDishPost = ({history, match}) => {
     useEffect(() => {
         // Set the formState to the fields in the post after mount and when post changes
         post && setFormState({
-            title: post.title,
-            category: post.category,
-            content: post.content
+            name: post.name,
+            price: post.price,
+            description: post.description
         })
     },[post])
 
     return (
         <form id="editPostForm" onSubmit={handleSubmit}>
             <div style={divStyles}>
-                <label style={labelStyles}>Title</label>
-                <input style={inputStyles} required type="text" name="title" value={formState.title} onChange={handleChange}></input>
+                <label style={labelStyles}>Name</label>
+                <input style={inputStyles} required type="text" name="name" value={formState.name} onChange={handleChange}></input>
             </div>
             <div style={divStyles}>
-                <label style={labelStyles}>Category</label>
-                <input style={inputStyles} type="text" name="category" value={formState.category} onChange={handleChange}></input>
+                <label style={labelStyles}>Price</label>
+                <input style={inputStyles} type="number" name="price" value={formState.price} onChange={handleChange}></input>
             </div>
             <div style={divStyles}>
-                <label style={labelStyles}>Content</label>
-                <textarea form="editPostForm" required style={textAreaStyles} name="content" value={formState.content} onChange={handleChange}></textarea>
+                <label style={labelStyles}>Description</label>
+                <textarea form="editPostForm" required style={textAreaStyles} name="description" value={formState.description} onChange={handleChange}></textarea>
             </div>
             <input type="submit" value="Update post"></input>
         </form>

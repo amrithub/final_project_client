@@ -18,7 +18,7 @@ const DishPost = ({history, post, showControls}) => {
         fontSize: '1em'
     }
     //const {title, modified_date, category, content} = post
-    const {title, username, modified_date, category, content} = post 
+    const {name, username, modified_date,  price, description} = post 
     const allowEditDelete = loggedInUser && loggedInUser === 'ba'
     function handleDelete(event) {
         event.preventDefault()
@@ -49,12 +49,11 @@ const DishPost = ({history, post, showControls}) => {
     return (
         <div>
             <Link style={linkStyles} to={`/posts/${post._id}`}>
-                <h1>{title}</h1>
-               
-
+                <h1>{name}</h1>
                 <p>{modified_date.toLocaleString()}</p>
-                <p>{category}</p>
-                <p>{content}</p>
+                <p>{price}</p>
+                <p>{description}</p>
+               
                 {showControls && allowEditDelete && (
                     <div>
                         <button style={buttonStyles} onClick={handleDelete}>Delete</button>

@@ -36,16 +36,15 @@ const NewDishPost = ({history}) => {
     function handleSubmit(event) {
         event.preventDefault()
         const newPost = {
-            title: formState.title,
-            category: formState.category || "general",
-            content: formState.content,
-        
-        }
+            name: formState.name,
+            price: formState.price,
+            description: formState.description         }
         addDishPost(newPost).then((newPost) => {
             dispatch({
                 type: "setDishPosts",
                 data: [newPost, ...dishPosts]
             })
+            
             history.push(`/posts/${newPost._id}`)
             console.log("yellow")
         }).catch((error) => {
@@ -53,9 +52,9 @@ const NewDishPost = ({history}) => {
         })
     }
     const initialFormState = {
-        title: "",
-        category: "",
-        content: ""
+        name: "",
+        price: "",
+        description: ""
         
     } 
     const [formState,setFormState] = useState(initialFormState)
@@ -66,16 +65,16 @@ const NewDishPost = ({history}) => {
     return (
         <form id="newPostForm" onSubmit={handleSubmit}>
             <div style={divStyles}>
-                <label style={labelStyles}>Title</label>
-                <input style={inputStyles} required type="text" name="title" placeholder="Enter a title" onChange={handleChange}></input>
+                <label style={labelStyles}>Name</label>
+                <input style={inputStyles} required type="text" name="name" placeholder="Enter a Dish-Name" onChange={handleChange}></input>
             </div>
             <div style={divStyles}>
-                <label style={labelStyles}>Category</label>
-                <input style={inputStyles} type="text" name="category" placeholder="Enter a category" onChange={handleChange}></input>
+                <label style={labelStyles}>Price</label>
+                <input style={inputStyles} type="number" name="price" placeholder="Enter the price" onChange={handleChange}></input>
             </div>
             <div style={divStyles}>
-                <label style={labelStyles}>Content</label>
-                <textarea form="newPostForm" required style={textAreaStyles} name="content" placeholder="Enter post here" onChange={handleChange}></textarea>
+                <label style={labelStyles}>Description</label>
+                <textarea form="newPostForm" required style={textAreaStyles} name="description" placeholder="Enter the Description" onChange={handleChange}></textarea>
             </div>
             <input type="submit" value="Add post"></input>
         </form>
