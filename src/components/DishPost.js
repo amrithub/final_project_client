@@ -19,7 +19,7 @@ const DishPost = ({history, post, showControls}) => {
     }
     //const {title, modified_date, category, content} = post
     const {title, username, modified_date, category, content} = post 
-    const allowEditDelete = loggedInUser //&& loggedInUser === post.username
+    const allowEditDelete = loggedInUser && loggedInUser === 'ba'
     function handleDelete(event) {
         event.preventDefault()
         deleteDishPost(post._id).then(() => {
