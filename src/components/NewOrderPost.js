@@ -24,6 +24,10 @@ const NewOrderPost = ({history}) => {
     //     const ids = dishPosts.map((post) => post._id)
     //     return ids.sort()[ids.length-1] + 1
     // }
+   
+    const errorStyles = {
+        color: "red"
+    }
 
     function handleChange(event) {
         const name = event.target.name
@@ -48,9 +52,15 @@ const NewOrderPost = ({history}) => {
                 data: [newOrder, ...orderPosts]
             })
             history.push(`/orders/${newOrder._id}`)
-        }).catch((error) => {
-            console.log("Caught an error on server posting an order", error)
-        })
+        
+    }).catch((error) => {
+        const status = error.response ? error.response.status : 500
+        console.log("caught error on edit", error)
+        if(status === 403)
+            setErrorMessage("Log in to make your order")
+        else
+            setErrorMessage("Well, this is embarrassing... There was a problem on the server.")
+    })
     }
     const initialFormState = {
         title: "",
@@ -58,13 +68,19 @@ const NewOrderPost = ({history}) => {
         content: ""
         
     } 
+    const [errorMessage, setErrorMessage] = useState(null);
     const [formState,setFormState] = useState(initialFormState)
     const {store, dispatch} = useGlobalState()
-    const {orderPosts} = store
+    const {orderPosts, loggedInUser} = store
 
     //const [formState,setFormState] = useState(initialFormState)
+    // if(loggedInUser)
     return (
+        
         <form id="newOrderForm" onSubmit={handleSubmit}>
+             {errorMessage && <p style={errorStyles}>{errorMessage}</p>}
+             
+             (
             <div style={divStyles}>
                 <label style={labelStyles}>customer Name</label>
                 <input style={inputStyles} required type="text" name="customer_name" placeholder="Enter your name" onChange={handleChange}></input>
@@ -84,6 +100,15 @@ const NewOrderPost = ({history}) => {
             <input type="submit" value="Add order"></input>
         </form>
     ) 
-}
+    // else
+    // return(
+    //     <div>
+    //           {/* <h1>Login first</h1>  */}
+    //         </div>)
+    // }
+
+             }
+
+
 
 export default withRouter(NewOrderPost)

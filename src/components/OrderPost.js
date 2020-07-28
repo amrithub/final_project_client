@@ -10,8 +10,6 @@ const OrderPost = ({history, order, showControls}) => {
     
     // return null if there is no post
     if (!order) return null
-    console.log(order)
-    console.log("blue")
     const linkStyles = {
         textDecoration: 'none',
         color: 'black' 
@@ -21,7 +19,7 @@ const OrderPost = ({history, order, showControls}) => {
         fontSize: '1em'
     }
     const {customer_name, modified_date, delivery_address, order_details, contact_number} = order
-    const allowDelete = loggedInUser //&& loggedInUser === post.username
+    const allowDelete = loggedInUser && loggedInUser === 'admin'
     function handleDelete(event) {
         event.preventDefault()
         deleteOrderPost(order._id).then(() => {
@@ -43,13 +41,7 @@ const OrderPost = ({history, order, showControls}) => {
     }
 
 
-    // Handle the edit button
-    function handleEdit(event) {
-        event.preventDefault()
-        history.push(`/orders/edit/${order._id}`)
-        
-    }
-   // console.log("green")
+    
     return (
         
         <div>

@@ -5,7 +5,8 @@ import {loginUser} from '../services/authServices'
 const SignIn = ({history}) => {
     const initialFormState = {
         username: "",
-        password: ""
+        password: "",
+        userRole: ""
     } 
     
     const [errorMessage, setErrorMessage] = useState(null);
@@ -14,6 +15,7 @@ const SignIn = ({history}) => {
     const errorStyles = {
         color: "red"
     }
+    console.log(userDetails)
     
     function handleChange(event) {
         const name = event.target.name

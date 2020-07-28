@@ -1,5 +1,5 @@
 import api from '../config/api';
-
+import {loginUser} from '../services/authServices'
 // Returns a single post based on the id provided
 export function getOrderFromId(orderPosts,id) {
     const order =  orderPosts.find((order) =>  order._id === id)
@@ -8,7 +8,7 @@ export function getOrderFromId(orderPosts,id) {
 }
 export async function getAllOrderPosts() {
     const response = await api.get("/orders")
-    console.log('all orders')
+    
     return response.data
 }
 export async function addOrderPost(newOrder) {

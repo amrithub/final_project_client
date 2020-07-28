@@ -13,6 +13,12 @@ export default function (state, action) {
                 orderPosts: action.data
             }
         }
+        case "setuserRole": {
+            return {
+                ...state,
+                userRole: action.data
+            }
+        }
         case "setDishPosts": {
             return {
                 ...state,

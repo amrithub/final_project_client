@@ -33,10 +33,9 @@ const Navigate = () => {
                 <Link style={linkStyles} to="/">{loggedInUser}</Link>
                 <Link style={linkStyles} onClick={handleLogout} to="/">Logout</Link>
                
-                <Link style={linkStyles} to="/posts/new">Add Dish Post</Link>
-                <Link style={linkStyles} to="/orders/new">Add order</Link>
+                
                 <Link style={linkStyles} to="/">Home</Link>
-                <Link style={linkStyles} to="/orders">View Orders</Link>
+                
                 
                 </div>)
             : (<div>
@@ -47,6 +46,18 @@ const Navigate = () => {
                
                 </div>)
             }
+            <div>
+                {loggedInUser === 'admin'?
+                (<div>
+                    <Link style={linkStyles} to="/orders">View Orders</Link>
+                    <Link style={linkStyles} to="/posts/new">Add Dish Post</Link>
+                </div>)    
+                :
+                (<div>
+                    
+                <Link style={linkStyles} to="/orders/new">Add order</Link>
+                </div>  )}  
+            </div>
             
         </div>
     )

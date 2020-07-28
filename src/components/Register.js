@@ -7,12 +7,16 @@ const Register = ({history}) => {
     const initialFormState = {
         username: "",
         email: "",
-        password: ""
+        password: "",
+        //userRole: ""
     } 
     const [errorMessage, setErrorMessage] = useState(null);
     const [userDetails,setUserDetails] = useState(initialFormState)
     const {dispatch} = useGlobalState()
-
+    const errorStyles = {
+        color: "red"
+    }
+   
     function handleChange(event) {
         const name = event.target.name
         const value = event.target.value
@@ -23,23 +27,30 @@ const Register = ({history}) => {
     }
     function handleSubmit(event) {
         event.preventDefault()
-        registerUser(userDetails)
-        .then(response => {
+        registerUser(userDetails).then(() => {
             dispatch({
                 type: "setLoggedInUser",
                 data: userDetails.username
             })
             history.push("/")
-           
+        }).catch((error) => {
+            const status = error.response ? error.response.status : 500
+			if(status === 409) {
+                // There was some other error - maybe the server or db is down
+                setErrorMessage("There may be a problem with the server. Please try again after a few moments.")
+				
+            }
+            else {
+                // This username is already registered. Let the user know.
+				setErrorMessage("This username already exists. Please login, or specify another username.")				
+                
+            }
+			console.log(`registration failed with error: ${error} and status ${status}`)
         })
-        .catch(error => {
-            setErrorMessage("Oops something went wrong, try another email");
-        });
-       
-        
     }
     return (
         <form onSubmit={handleSubmit}>
+            {errorMessage && <p style={errorStyles}>{errorMessage}</p>}
             <div style={divStyles}>
                 <label style={labelStyles}>Username</label>
                 <input style={inputStyles} required type="text" name="username" placeholder="Enter a username" onChange={handleChange}></input>

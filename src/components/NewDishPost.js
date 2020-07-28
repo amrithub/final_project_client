@@ -48,22 +48,32 @@ const NewDishPost = ({history}) => {
             history.push(`/posts/${newPost._id}`)
             console.log("yellow")
         }).catch((error) => {
-            console.log("Caught an error on server adding a post", error)
+            const status = error.response ? error.response.status : 500
+            console.log("caught error on edit", error)
+            if(status === 403)
+                setErrorMessage("you are not authorised to post dish orders")
+            else
+                setErrorMessage("Well, this is embarrassing... There was a problem on the server.")
         })
-    }
+        }
     const initialFormState = {
         name: "",
         price: "",
         description: ""
         
     } 
+    const [errorMessage, setErrorMessage] = useState(null);
     const [formState,setFormState] = useState(initialFormState)
     const {store, dispatch} = useGlobalState()
     const {dishPosts} = store
+    const errorStyles = {
+        color: "red"
+    }
 
     //const [formState,setFormState] = useState(initialFormState)
     return (
         <form id="newPostForm" onSubmit={handleSubmit}>
+            {errorMessage && <p style={errorStyles}>{errorMessage}</p>}
             <div style={divStyles}>
                 <label style={labelStyles}>Name</label>
                 <input style={inputStyles} required type="text" name="name" placeholder="Enter a Dish-Name" onChange={handleChange}></input>
