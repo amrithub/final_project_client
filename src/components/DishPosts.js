@@ -10,7 +10,7 @@ const DishPosts = () => {
     return (
         
         <div>
-            <img src={ require('../images/meal.jpg') } width="400" height="150"></img>
+            <img src={ require('../images/meal.jpg') } width="400" height="150" position="center"></img>
             
             {dishPosts.sort((a,b) => b.modified_date - a.modified_date).map((post) => <DishPost key={post._id} post={post} />)}        
         </div>

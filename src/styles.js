@@ -29,6 +29,7 @@ export const heading = {
 export const stylePrice = {
     fontSize: "2vw",
     color: "purple"
+    
 }
 export const imageStyle = {
     width: '25px',
