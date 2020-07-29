@@ -52,7 +52,9 @@ const Navigate = () => {
                 <Button variant="contained" color="A100">
                     Log In
                 </Button></Link>
-                
+                <Link style={linkStyles} to="/auth/register">
+                <Button variant="contained" color="A100">Register</Button>
+                </Link>
                 <Link style={linkStyles} to="/"><Button variant="contained" color="A100">
                     Home
                 </Button></Link>
