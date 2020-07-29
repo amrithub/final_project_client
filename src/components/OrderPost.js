@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
 import {useGlobalState} from '../config/store'
 import {deleteOrderPost} from '../services/OrderPostServices'
+import Button from '@material-ui/core/Button';
+import {linkStyles, stylePrice } from '../styles';
 const OrderPost = ({history, order, showControls}) => {
     
     const {store, dispatch} = useGlobalState()
@@ -10,14 +12,7 @@ const OrderPost = ({history, order, showControls}) => {
     
     // return null if there is no post
     if (!order) return null
-    const linkStyles = {
-        textDecoration: 'none',
-        color: 'black' 
-    }
-    const buttonStyles = {
-        margin: '.5em',
-        fontSize: '1em'
-    }
+    
     const {customer_name, modified_date, delivery_address, order_details, contact_number} = order
     const allowDelete = loggedInUser && loggedInUser === 'admin'
     function handleDelete(event) {
@@ -46,16 +41,20 @@ const OrderPost = ({history, order, showControls}) => {
         
         <div>
             <Link style={linkStyles} to={`/orders/${order._id}`}>
-                <h1>{customer_name}</h1>
-                <p>{modified_date.toLocaleString()}</p>
+                <h1>Order Details</h1>
+                <p style={stylePrice}>{customer_name}</p>
+                
                 <p>{delivery_address}</p>
                 <p>{order_details}</p>
                 <p>{contact_number}</p>
+                <p>{modified_date.toLocaleString()}</p>
 
                 {showControls && allowDelete && (
                     <div>
-                        <h1>Order Details</h1>
-                        <button style={buttonStyles} onClick={handleDelete}>Delete</button>
+                        
+                        <Button variant="contained" color="primary" onClick={handleDelete}>
+                            Delete
+                        </Button>
                     </div>
                 )}
             </Link>

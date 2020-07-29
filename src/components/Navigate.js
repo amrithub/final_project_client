@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {useGlobalState} from '../config/store'
 import {logoutUser} from '../services/authServices'
+import Button from '@material-ui/core/Button';
 const Navigate = () => {
     const divStyles = {
         display: 'flex'
@@ -30,32 +31,50 @@ const Navigate = () => {
         <div style={divStyles}>
             {loggedInUser 
             ? (<div>
-                <Link style={linkStyles} to="/">{loggedInUser}</Link>
-                <Link style={linkStyles} onClick={handleLogout} to="/">Logout</Link>
+                {/* <Link style={linkStyles} to="/">{loggedInUser}</Link> */}
+                <Link style={linkStyles} onClick={handleLogout} to="/">
+                    
+                <Button variant="contained" color="A100">
+                    Log Out
+                </Button>
+                </Link>
                
                 
-                <Link style={linkStyles} to="/">Home</Link>
+                <Link style={linkStyles} to="/"><Button variant="contained" color="A100">
+                    Home
+                </Button></Link>
                 
                 
                 </div>)
             : (<div>
                 
-                <Link style={linkStyles} to="/auth/login">Login</Link>
-                <Link style={linkStyles} to="/auth/register">Register</Link>
-                <Link style={linkStyles} to="/">Home</Link>
+                <Link style={linkStyles} to="/auth/login">
+                <Button variant="contained" color="A100">
+                    Log In
+                </Button></Link>
+                
+                <Link style={linkStyles} to="/"><Button variant="contained" color="A100">
+                    Home
+                </Button></Link>
                
                 </div>)
             }
             <div>
                 {loggedInUser === 'admin'?
                 (<div>
-                    <Link style={linkStyles} to="/orders">View Orders</Link>
-                    <Link style={linkStyles} to="/posts/new">Add Dish Post</Link>
+                    <Link style={linkStyles} to="/orders"><Button variant="contained" color="A100">
+                   View Orders
+                </Button></Link>
+                    <Link style={linkStyles} to="/posts/new"><Button variant="contained" color="A100">
+                    Post Dish
+                </Button></Link>
                 </div>)    
                 :
                 (<div>
                     
-                <Link style={linkStyles} to="/orders/new">Add order</Link>
+                <Link style={linkStyles} to="/orders/new"><Button variant="contained" color="A100">
+                    Make Order
+                </Button></Link>
                 </div>  )}  
             </div>
             

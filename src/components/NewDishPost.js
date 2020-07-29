@@ -1,29 +1,9 @@
 import React, {useState} from 'react'
 import {withRouter} from 'react-router-dom'
-import {divStyles, inputStyles, labelStyles} from '../styles'
+import {divStyles, inputStyles, labelStyles,errorStyles, textAreaStyles} from '../styles'
 import {useGlobalState} from '../config/store'
 import {addDishPost} from '../services/dishPostServices'
 const NewDishPost = ({history}) => {
-    const divStyles = {
-        display: "grid",
-        width: "100vw"
-    }
-    const inputStyles = {
-        width: "70vw",
-        margin: ".5em"
-    }
-    const labelStyles = {
-        fontSize: "1.2em"
-    }
-    const textAreaStyles = {
-        height: "200px",
-        margin: ".5em",
-        width: "70vw"
-    }
-    // function getNextId(){
-    //     const ids = dishPosts.map((post) => post._id)
-    //     return ids.sort()[ids.length-1] + 1
-    // }
 
     function handleChange(event) {
         const name = event.target.name
@@ -46,7 +26,7 @@ const NewDishPost = ({history}) => {
             })
             
             history.push(`/posts/${newPost._id}`)
-            console.log("yellow")
+           
         }).catch((error) => {
             const status = error.response ? error.response.status : 500
             console.log("caught error on edit", error)
@@ -65,14 +45,13 @@ const NewDishPost = ({history}) => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [formState,setFormState] = useState(initialFormState)
     const {store, dispatch} = useGlobalState()
-    const {dishPosts} = store
-    const errorStyles = {
-        color: "red"
-    }
-
-    //const [formState,setFormState] = useState(initialFormState)
+    const {dishPosts, loggedInUser} = store
+    
+    
     return (
-        <form id="newPostForm" onSubmit={handleSubmit}>
+        <div>
+        {loggedInUser?
+        (<form id="newPostForm" onSubmit={handleSubmit}>
             {errorMessage && <p style={errorStyles}>{errorMessage}</p>}
             <div style={divStyles}>
                 <label style={labelStyles}>Name</label>
@@ -87,7 +66,13 @@ const NewDishPost = ({history}) => {
                 <textarea form="newPostForm" required style={textAreaStyles} name="description" placeholder="Enter the Description" onChange={handleChange}></textarea>
             </div>
             <input type="submit" value="Add post"></input>
-        </form>
+        </form>)
+        :
+        (<div>
+            You are not permitted to make a post
+        </div>)}
+        </div>
+    
     ) 
 }
 

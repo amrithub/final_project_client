@@ -1,33 +1,10 @@
 import React, {useState} from 'react'
 import {withRouter} from 'react-router-dom'
-import {divStyles, inputStyles, labelStyles} from '../styles'
+import {divStyles, inputStyles, labelStyles, textAreaStyles, errorStyles} from '../styles'
 import {useGlobalState} from '../config/store'
 import {addOrderPost} from '../services/OrderPostServices'
 const NewOrderPost = ({history}) => {
-    const divStyles = {
-        display: "grid",
-        width: "100vw"
-    }
-    const inputStyles = {
-        width: "70vw",
-        margin: ".5em"
-    }
-    const labelStyles = {
-        fontSize: "1.2em"
-    }
-    const textAreaStyles = {
-        height: "200px",
-        margin: ".5em",
-        width: "70vw"
-    }
-    // function getNextId(){
-    //     const ids = dishPosts.map((post) => post._id)
-    //     return ids.sort()[ids.length-1] + 1
-    // }
    
-    const errorStyles = {
-        color: "red"
-    }
 
     function handleChange(event) {
         const name = event.target.name
@@ -80,7 +57,7 @@ const NewOrderPost = ({history}) => {
         <form id="newOrderForm" onSubmit={handleSubmit}>
              {errorMessage && <p style={errorStyles}>{errorMessage}</p>}
              
-             (
+             
             <div style={divStyles}>
                 <label style={labelStyles}>customer Name</label>
                 <input style={inputStyles} required type="text" name="customer_name" placeholder="Enter your name" onChange={handleChange}></input>

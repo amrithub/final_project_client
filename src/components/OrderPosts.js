@@ -1,6 +1,6 @@
 import React from 'react'
 import OrderPost from "./OrderPost"
-import {logoutUser} from '../services/authServices'
+import Navigate from './Navigate'
 import {useGlobalState} from '../config/store'
 //import api from '../config/api'; 
 

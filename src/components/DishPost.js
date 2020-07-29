@@ -1,23 +1,19 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
+import Button from '@material-ui/core/Button';
 import {useGlobalState} from '../config/store'
 import {deleteDishPost} from '../services/dishPostServices'
+import { heading,  linkStyles, stylePrice , styleName, flexboxContainer} from '../styles';
 const DishPost = ({history, post, showControls}) => {
-   // console.log(post)
+    //Use of global state and setting values from store
     const {store, dispatch} = useGlobalState()
     const {dishPosts, loggedInUser} = store
     const [errorMessage, setErrorMessage] = useState(null)
     // return null if there is no post
     if (!post) return null
-    const linkStyles = {
-        textDecoration: 'none',
-        color: 'black' 
-    }
-    const buttonStyles = {
-        margin: '.5em',
-        fontSize: '1em'
-    }
-    //const {title, modified_date, category, content} = post
+    
+    
+    
     const {name, username, modified_date,  price, description} = post 
     const allowEditDelete = loggedInUser && loggedInUser === 'admin'
     function handleDelete(event) {
@@ -36,7 +32,7 @@ const DishPost = ({history, post, showControls}) => {
             if(status === 403)
                 setErrorMessage("Oops! It appears we lost your login session. Make sure 3rd party cookies are not blocked by your browser settings.")
             else
-                setErrorMessage("Well, this is embarrassing... There was a problem on the server.")
+                setErrorMessage("There was a problem on the server.")
         })
     }
 
@@ -45,19 +41,25 @@ const DishPost = ({history, post, showControls}) => {
         event.preventDefault()
         history.push(`/posts/edit/${post._id}`)
     }
-
+    //return a dish post
     return (
-        <div>
+         <div class="flexboxContainer">
             <Link style={linkStyles} to={`/posts/${post._id}`}>
-                <h1>{name}</h1>
-                <p>{modified_date.toLocaleString()}</p>
-                <p>{price}</p>
+                <p style={stylePrice}>The meal details</p>
+                <p style={styleName}>{name}</p>
+                
+                <p style={stylePrice}>${price}</p>
                 <p>{description}</p>
+                <p>Posted on: {modified_date.toLocaleString()}</p>
                
                 {showControls && allowEditDelete && (
-                    <div>
-                        <button style={buttonStyles} onClick={handleDelete}>Delete</button>
-                        <button style={buttonStyles} onClick={handleEdit}>Edit</button>
+                    <div>                        
+                        <Button variant="contained" color="primary" onClick={handleDelete}>
+                            Delete
+                        </Button>
+                        <Button variant="contained" color="primary" onClick={handleEdit}>
+                            Edit
+                        </Button>
                     </div>
                 )}
             </Link>
