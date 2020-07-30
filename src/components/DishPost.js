@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import {useGlobalState} from '../config/store'
 import {deleteDishPost} from '../services/dishPostServices'
-import { heading,  linkStyles, stylePrice , styleName, flexboxContainer} from '../styles';
+import { linkStyles, stylePrice , styleName,  formStyles} from '../styles';
 const DishPost = ({history, post, showControls}) => {
     //Use of global state and setting values from store
     const {store, dispatch} = useGlobalState()
@@ -43,21 +43,21 @@ const DishPost = ({history, post, showControls}) => {
     }
     //return a dish post
     return (
-         <div class="flexboxContainer">
+         <div>
             <Link style={linkStyles} to={`/posts/${post._id}`}>
-                <p style={stylePrice}>The meal details</p>
+                
                 <p style={styleName}>{name}</p>
                 
                 <p style={stylePrice}>${price}</p>
-                <p>{description}</p>
-                <p>Posted on: {modified_date.toLocaleString()}</p>
+                <p style={formStyles}>{description}</p>
+                <p style={formStyles}>Posted on: {modified_date.toLocaleString()}</p>
                
                 {showControls && allowEditDelete && (
                     <div>                        
-                        <Button variant="contained" color="primary" onClick={handleDelete}>
+                        <Button variant="contained" color="primary" onClick={handleDelete}style={formStyles} >
                             Delete
                         </Button>
-                        <Button variant="contained" color="primary" onClick={handleEdit}>
+                        <Button variant="contained" color="primary" onClick={handleEdit} style={formStyles}>
                             Edit
                         </Button>
                     </div>

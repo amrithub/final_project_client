@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import {withRouter} from 'react-router-dom'
-import {divStyles, inputStyles, labelStyles, textAreaStyles, errorStyles} from '../styles'
+import {divStyles, inputStyles, labelStyles, textAreaStyles, errorStyles, formStyles} from '../styles'
 import {useGlobalState} from '../config/store'
 import {addOrderPost} from '../services/OrderPostServices'
 const NewOrderPost = ({history}) => {
    
-
+    // set the values according to the change of event
     function handleChange(event) {
         const name = event.target.name
         const value = event.target.value
@@ -14,6 +14,7 @@ const NewOrderPost = ({history}) => {
             [name]: value
         })
     }
+    //function for submitting the new form after the user fills in
     function handleSubmit(event) {
         event.preventDefault()
         const newOrder = {
@@ -50,8 +51,7 @@ const NewOrderPost = ({history}) => {
     const {store, dispatch} = useGlobalState()
     const {orderPosts, loggedInUser} = store
 
-    //const [formState,setFormState] = useState(initialFormState)
-    // if(loggedInUser)
+    
     return (
         
         <form id="newOrderForm" onSubmit={handleSubmit}>
@@ -74,7 +74,7 @@ const NewOrderPost = ({history}) => {
                 <label style={labelStyles}>Contact Number</label>
                 <input style={inputStyles} type="number" name="contact_number" placeholder="Enter your phone number" onChange={handleChange}></input>
             </div>
-            <input type="submit" value="Add order"></input>
+            <input type="submit" value="Add order" style={formStyles}></input>
         </form>
     ) 
     // else

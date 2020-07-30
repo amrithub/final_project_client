@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {withRouter} from 'react-router-dom'
-import {divStyles, inputStyles, labelStyles,errorStyles, textAreaStyles} from '../styles'
+import {divStyles, inputStyles, formStyles, labelStyles,errorStyles, textAreaStyles} from '../styles'
 import {useGlobalState} from '../config/store'
 import {addDishPost} from '../services/dishPostServices'
 const NewDishPost = ({history}) => {
@@ -63,9 +63,9 @@ const NewDishPost = ({history}) => {
             </div>
             <div style={divStyles}>
                 <label style={labelStyles}>Description</label>
-                <textarea form="newPostForm" required style={textAreaStyles} name="description" placeholder="Enter the Description" onChange={handleChange}></textarea>
+                <textarea form="newPostForm" required style={inputStyles} name="description" placeholder="Enter the Description" onChange={handleChange}></textarea>
             </div>
-            <input type="submit" value="Add post"></input>
+            <input type="submit" value="Add post" style={formStyles}></input>
         </form>)
         :
         (<div>

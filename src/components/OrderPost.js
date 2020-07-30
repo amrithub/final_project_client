@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import {useGlobalState} from '../config/store'
 import {deleteOrderPost} from '../services/OrderPostServices'
 import Button from '@material-ui/core/Button';
-import {linkStyles, stylePrice } from '../styles';
+import {linkStyles, stylePrice, formStyles, errorMessage } from '../styles';
 const OrderPost = ({history, order, showControls}) => {
     
     const {store, dispatch} = useGlobalState()
@@ -41,18 +41,18 @@ const OrderPost = ({history, order, showControls}) => {
         
         <div>
             <Link style={linkStyles} to={`/orders/${order._id}`}>
-                <h1>Order Details</h1>
+                <p style={stylePrice}>Order Details</p>
                 <p style={stylePrice}>{customer_name}</p>
                 
-                <p>{delivery_address}</p>
-                <p>{order_details}</p>
-                <p>{contact_number}</p>
-                <p>{modified_date.toLocaleString()}</p>
+                <p style={formStyles}>{delivery_address}</p>
+                <p style={formStyles}>{order_details}</p>
+                <p style={formStyles}>{contact_number}</p>
+                <p style={formStyles}>{modified_date.toLocaleString()}</p>
 
                 {showControls && allowDelete && (
                     <div>
                         
-                        <Button variant="contained" color="primary" onClick={handleDelete}>
+                        <Button variant="contained" color="primary" onClick={handleDelete} style={formStyles}>
                             Delete
                         </Button>
                     </div>

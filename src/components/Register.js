@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 //import {divStyles, inputStyles, labelStyles} from '../styles'
-import {divStyles, inputStyles, labelStyles} from '../styles'
+import {divStyles, inputStyles, labelStyles, formStyles, errorStyles} from '../styles'
 import {useGlobalState} from '../config/store'
 import {registerUser} from '../services/authServices';
 const Register = ({history}) => {
@@ -13,9 +13,7 @@ const Register = ({history}) => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [userDetails,setUserDetails] = useState(initialFormState)
     const {dispatch} = useGlobalState()
-    const errorStyles = {
-        color: "red"
-    }
+   
    
     function handleChange(event) {
         const name = event.target.name
@@ -63,7 +61,7 @@ const Register = ({history}) => {
                 <label style={labelStyles}>Password</label>
                 <input style={inputStyles} required type="password" name="password" placeholder="Enter a password" onChange={handleChange}></input>
             </div>
-            <input type="submit" value="Register"></input>
+            <input type="submit" value="Register" style={formStyles}></input>
             
         </form>
     )

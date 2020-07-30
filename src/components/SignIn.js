@@ -1,20 +1,18 @@
 import React, {useState} from 'react'
-import {divStyles, inputStyles, labelStyles} from '../styles'
+import {divStyles, inputStyles, labelStyles,errorStyles, formStyles} from '../styles'
 import {useGlobalState} from '../config/store'
 import {loginUser} from '../services/authServices'
+//check history for and initialise username
 const SignIn = ({history}) => {
     const initialFormState = {
         username: "",
-        password: "",
-        userRole: ""
+        password: ""
+        
     } 
     
     const [errorMessage, setErrorMessage] = useState(null);
     const [userDetails,setUserDetails] = useState(initialFormState)
     const {dispatch} = useGlobalState()
-    const errorStyles = {
-        color: "red"
-    }
     console.log(userDetails)
     
     function handleChange(event) {
@@ -25,6 +23,7 @@ const SignIn = ({history}) => {
             [name]: value
         })
     }
+    //function to handle submit of sign in form
     function handleSubmit(event) {
         event.preventDefault()
         // Attempt login on server
@@ -43,12 +42,7 @@ const SignIn = ({history}) => {
         })		
     }
     
-    // function loginUser() {
-    //     dispatch({
-    //     type: "setLoggedInUser",
-    //     data: userDetails.username
-    //     })
-    // }
+    
     return (
         
         <form onSubmit={handleSubmit}>
@@ -62,7 +56,7 @@ const SignIn = ({history}) => {
                 <label style={labelStyles}>Password</label>
                 <input style={inputStyles} required type="password" name="password" placeholder="Enter a password" onChange={handleChange}></input>
             </div>
-            <input type="submit" value="Login"></input>
+            <input type="submit" value="Login" style={formStyles}></input>
             
         </form>
     )

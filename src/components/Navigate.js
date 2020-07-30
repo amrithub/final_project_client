@@ -37,14 +37,12 @@ const Navigate = () => {
                 <Button variant="contained" color="A100">
                     Log Out
                 </Button>
-                </Link>
-               
+                </Link>           
                 
                 <Link style={linkStyles} to="/"><Button variant="contained" color="A100">
                     Home
                 </Button></Link>
-                
-                
+                              
                 </div>)
             : (<div>
                 
@@ -75,7 +73,7 @@ const Navigate = () => {
                 (<div>
                     
                 <Link style={linkStyles} to="/orders/new"><Button variant="contained" color="A100">
-                    Make Order
+                    Order
                 </Button></Link>
                 </div>  )}  
             </div>
