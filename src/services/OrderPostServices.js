@@ -21,7 +21,3 @@ export async function deleteOrderPost(id) {
     return response.data
 }
 
-// export async function updateBlogPost(post) {
-//     const response = await api.put(`/posts/${post._id}`, post)
-//     return response.data
-// }

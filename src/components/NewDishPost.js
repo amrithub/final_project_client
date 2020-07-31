@@ -69,7 +69,7 @@ const NewDishPost = ({history}) => {
         </form>)
         :
         (<div>
-            You are not permitted to make a post
+            <p style={{ color: 'red' }}>You are not permitted to make a post</p>
         </div>)}
         </div>
     

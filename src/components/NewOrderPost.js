@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {withRouter} from 'react-router-dom'
-import {divStyles, inputStyles, labelStyles, textAreaStyles, errorStyles, formStyles} from '../styles'
+import {divStyles, heading, inputStyles, labelStyles, textAreaStyles, errorStyles, formStyles} from '../styles'
 import {useGlobalState} from '../config/store'
 import {addOrderPost} from '../services/OrderPostServices'
 const NewOrderPost = ({history}) => {
@@ -53,8 +53,10 @@ const NewOrderPost = ({history}) => {
 
     
     return (
+        <div>
+            {loggedInUser?
         
-        <form id="newOrderForm" onSubmit={handleSubmit}>
+       ( <form id="newOrderForm" onSubmit={handleSubmit}>
              {errorMessage && <p style={errorStyles}>{errorMessage}</p>}
              
              
@@ -75,17 +77,15 @@ const NewOrderPost = ({history}) => {
                 <input style={inputStyles} type="number" name="contact_number" placeholder="Enter your phone number" onChange={handleChange}></input>
             </div>
             <input type="submit" value="Add order" style={formStyles}></input>
-        </form>
-    ) 
-    // else
-    // return(
-    //     <div>
-    //           {/* <h1>Login first</h1>  */}
-    //         </div>)
-    // }
-
-             }
-
+        </form>):
+           
+            (<div>
+                <p style={{ color: 'red' }}>please log into your account first</p>
+            </div>)}
+            </div>
+        
+        ) 
+    }
 
 
 export default withRouter(NewOrderPost)
