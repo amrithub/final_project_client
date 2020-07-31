@@ -70,8 +70,7 @@ const Navigate = () => {
                 </Button></Link>
                 </div>)    
                 :
-                (<div>
-                    
+                (<div>                    
                 <Link style={linkStyles} to="/orders/new"><Button variant="contained" color="A100">
                     Order
                 </Button></Link>
