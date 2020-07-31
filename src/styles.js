@@ -1,8 +1,8 @@
-import { blue } from "@material-ui/core/colors"
+
 
 export const divStyles = {
     display: "grid",
-    width: "150vw",
+    width: "500vw",
     position:'relative',
     left: 100,
    
@@ -12,13 +12,10 @@ export const formStyles = {
     left: 100
     
     }
-export const bckColor = {
-        backgorund: 'grey'
-        
-        }
+
 
 export const inputStyles = {
-width: "70vw",
+width: "40vw",
 margin: ".5em"
 }
 export const labelStyles = {
@@ -34,7 +31,7 @@ export const linkStyles = {
 export const textAreaStyles = {
     height: "100px",
     margin: ".5em",
-    width: "70vw",
+    width: "40vw",
     fontSize: "1.2vw"
 }
 export const heading = {
@@ -52,12 +49,7 @@ export const stylePrice = {
     left: 100
     
 }
-export const imageStyle = {
-    // width: '25px',
-    // height: '25px',
-    // position: 'absolute',
-    // left: 100
-}
+
 export const flexboxContainer = {
     display: 'flex',
     direction: 'row'
