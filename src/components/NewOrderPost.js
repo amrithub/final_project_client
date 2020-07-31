@@ -70,7 +70,7 @@ const NewOrderPost = ({history}) => {
             </div>
             <div style={divStyles}>
                 <label style={labelStyles}>Order Details</label>
-                <textarea form="newOrderForm" required style={textAreaStyles} name="order_details" placeholder="Enter post here" onChange={handleChange}></textarea>
+                <textarea form="newOrderForm" required style={textAreaStyles} name="order_details" placeholder="Enter order details" onChange={handleChange}></textarea>
             </div>
             <div style={divStyles}>
                 <label style={labelStyles}>Contact Number</label>
