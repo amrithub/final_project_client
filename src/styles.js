@@ -9,7 +9,7 @@ export const divStyles = {
 }
 export const formStyles = {
     position:'relative',
-    left: 100
+    left: 98, //position changed
     
     }
 
